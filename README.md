@@ -27,24 +27,27 @@ go get github.com/scrawld/zaplog
 package main
 
 import (
-    "github.com/scrawld/zaplog"
+	"fmt"
+	"os"
+
+	"github.com/scrawld/zaplog"
 )
 
 func main() {
-    err := zaplog.RegisterGlobalLogger(zaplog.Config{
+	err := zaplog.RegisterGlobalLogger(zaplog.Config{
 		Level:        "debug",
 		Encoding:     "console",
 		Directory:    "/tmp/zaplog",
 		MaxAge:       7,
 		LogInConsole: true,
 	})
-    if err != nil {
+	if err != nil {
 		fmt.Printf("register global logger error: %s\n", err)
 		os.Exit(1)
 	}
-    defer zaplog.Sync()
+	defer zaplog.Sync()
 
-    logger.Info("应用已启动")
+	zaplog.Info("应用已启动")
 }
 ```
 
@@ -54,26 +57,30 @@ func main() {
 package main
 
 import (
-    "github.com/scrawld/zaplog"
+	"fmt"
+	"os"
+
+	"github.com/scrawld/zaplog"
 )
 
 func main() {
-    err := zaplog.RegisterGlobalLogger(zaplog.Config{
+	err := zaplog.RegisterGlobalLogger(zaplog.Config{
 		Level:        "debug",
 		Encoding:     "console",
 		Directory:    "/tmp/zaplog",
 		MaxAge:       7,
 		LogInConsole: true,
 	})
-    if err != nil {
+	if err != nil {
 		fmt.Printf("register global logger error: %s\n", err)
 		os.Exit(1)
 	}
-    defer zaplog.Sync()
+	defer zaplog.Sync()
 
-    tracingLogger := zaplog.New()
+	tracingLogger := zaplog.New()
 
-    tracingLogger.Info("Tracing log example")
+	tracingLogger.Info("Tracing log example")
+	tracingLogger.Error("Tracing error log example")
 }
 ```
 
